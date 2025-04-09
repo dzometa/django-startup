@@ -15,15 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 from Contabilidad.views import crear_cuenta
+
 from register.views import generate_invoice_pdf
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
     path('crear_cuenta/', crear_cuenta, name='crear_cuenta'),
     path('editar_cuenta/<int:pk>/', crear_cuenta, name='editar_cuenta'),
 
     
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
